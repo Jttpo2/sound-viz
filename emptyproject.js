@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */ 
-
 function setup() {
 	let canvas = createCanvas(
 		window.innerWidth /2,
