@@ -1,0 +1,21 @@
+{
+  "name": "Empty P5 Project",
+  "version": "0.1.0",
+  "description": "Empty P5 Project with gulp, livereload and gitignore.",
+  "main": "index.html",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jttpo2/EmptyP5Project.git"
+  },
+  "author": "John Petersson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jttpo2/EmptyP5Project/issues"
+  },
+  "homepage": "https://github.com/Jttpo2/EmptyP5Project#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1"
+  }
+}
