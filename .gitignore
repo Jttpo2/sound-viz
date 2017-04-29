@@ -1,5 +1,8 @@
 .DS_Store
 
+// Concatenated js
+concat.js
+
 # Logs
 logs
 *.log

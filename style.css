@@ -1,0 +1,16 @@
+/* style.css */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	display: flex;
+
+	/*Center sketch horizontally */
+	justify-content: center;
+
+	/* Center vertically */
+	align-items: center;
+}

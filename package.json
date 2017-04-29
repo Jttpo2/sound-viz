@@ -1,5 +1,5 @@
 {
-  "name": "Empty P5 Project",
+  "name": "EmptyP5Project",
   "version": "0.1.0",
   "description": "Empty P5 Project with gulp, livereload and gitignore.",
   "main": "index.html",
@@ -13,11 +13,13 @@
   "bugs": {
     "url": "https://github.com/Jttpo2/EmptyP5Project/issues"
   },
+  "readme": "README.md",
   "homepage": "https://github.com/Jttpo2/EmptyP5Project#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-livereload": "^3.8.1"
-  }, 
+  },
   "jshintConfig": {
     "esversion": 6
   }
