@@ -1,6 +1,6 @@
 {
   "name": "EmptyP5Project",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Empty P5 Project with gulp, livereload and gitignore.",
   "main": "index.html",
   "scripts": {},
