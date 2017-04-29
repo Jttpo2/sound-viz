@@ -2,7 +2,7 @@
   "name": "EmptyP5Project",
   "version": "0.2.0",
   "description": "A basic P5.js project setup for use as foundation. With gulp, livereload and js-concatenation.
-by John Petersson",
+By John Petersson",
   "main": "index.html",
   "scripts": {},
   "repository": {
