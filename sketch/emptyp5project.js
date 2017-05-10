@@ -1,16 +1,31 @@
+new p5();
+
+let backgroundColor;
+
 function setup() {
 	let canvas = createCanvas(
-		window.innerWidth /2,
-		window.innerHeight /2
+		window.innerWidth,
+		window.innerHeight
 		);
 
-	// canvas.parent('sketch-holder');
-
+	backgroundColor = color(200);
 }
 
 function draw() {
-	background(200);
-	fill(100); 
-	rect(width/2, height/2, 50, 50);
-	//  
+	background(backgroundColor);
+	
+	drawTestSquare();
 }
+
+function windowResized() {
+	resizeCanvas(
+		window.innerWidth,
+		window.innerHeight);
+}
+
+function drawTestSquare() {
+	fill(100); 
+	rectMode(CENTER);
+	rect(width/2, height/2, 50, 50);
+}
+
