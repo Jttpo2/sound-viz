@@ -20,6 +20,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Changed
 - File structure.
 
-## [0.1.0] - 2016-12-18
+## [0.1.0] - 2017-04-18
 ### Added
 - Basic setup: Node, Gulp, Livereload, gitignore, Readme, Changelog.
