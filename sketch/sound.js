@@ -2,6 +2,8 @@ new p5();
 
 let backgroundColor;
 
+let mic;
+
 function setup() {
 	let canvas = createCanvas(
 		window.innerWidth,
@@ -9,12 +11,14 @@ function setup() {
 		);
 
 	backgroundColor = color(200);
+
+	mic = new Mic();
 }
 
 function draw() {
 	background(backgroundColor);
-	
-	drawTestSquare();
+
+	mic.run();
 }
 
 function windowResized() {
@@ -22,10 +26,3 @@ function windowResized() {
 		window.innerWidth,
 		window.innerHeight);
 }
-
-function drawTestSquare() {
-	fill(100); 
-	rectMode(CENTER);
-	rect(width/2, height/2, 50, 50);
-}
-
