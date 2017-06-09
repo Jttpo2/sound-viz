@@ -4,6 +4,9 @@
 concat.js
 deployment/style.css
 
+// Assets
+assets/
+
 # Logs
 logs
 *.log
