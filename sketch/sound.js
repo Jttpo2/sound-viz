@@ -80,7 +80,7 @@ function displayGraph() {
 
 		beginShape();
 		for (let i=0; i<360; i++) {
-			let r = map(volHistory[i], 0, 1, 0, 200);
+			let r = map(volHistory[i], 0, 1, 40, 300);
 			let x = r * cos(i);
 			let y = r * sin(i);
 
@@ -98,7 +98,6 @@ function displayGraph() {
 		}
 		endShape();	
 	}
-	
 }
 
 function displayMouth() {
