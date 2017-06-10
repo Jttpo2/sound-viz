@@ -1,6 +1,7 @@
 new p5();
 
 let backgroundColor;
+let opacity = 1;
 
 let song;
 let amp;
@@ -8,6 +9,10 @@ let vol;
 let volHistory = [];
 
 let circle = true;
+
+let fft;
+let bands = 512;
+let smoothing = 0.999;
 
 let button;
 
@@ -19,15 +24,17 @@ function setup() {
 	angleMode(DEGREES);
 
 	let canvas = createCanvas(
-		window.innerWidth, //* 7/10,
+		//window.innerWidth, //* 7/10,
+		bands,
 		window.innerHeight // * 7/10
 		);
 
-	backgroundColor = color(200);
+	backgroundColor = color(240, opacity);
 
 	song.play();
 
 	amp = new p5.Amplitude();
+	fft = new p5.FFT(smoothing, bands);
 
 	// button = createButton('Toggle');
 	// button.mousePressed(toggleSong);
@@ -35,18 +42,23 @@ function setup() {
 
 function draw() {
 	background(backgroundColor);
-	
-	vol = amp.getLevel();
-	volHistory.push(vol);
-	limitVolHistory();
 
-	displayGraph();
+	// handleAmpInput();
+	// displayAmpGraph();
+
+	handleFFT();
 }
 
 function windowResized() {
 	resizeCanvas(
 		window.innerWidth,
 		window.innerHeight);
+}
+
+function handleAmpInput() {
+	vol = amp.getLevel();
+	volHistory.push(vol);
+	limitVolHistory();
 }
 
 function toggleSong() {
@@ -58,19 +70,14 @@ function toggleSong() {
 }
 
 function limitVolHistory() {
-	let maxSize;
-	// if (circle) {
-	// 	maxSize = 360;
-	// } else {
-		maxSize = width;
-	// }
+	let maxSize = width;
 
 	if (volHistory.length > maxSize) {
 		volHistory.splice(0, volHistory.length - maxSize);
 	}
 }
 
-function displayGraph() {
+function displayAmpGraph() {
 	if (circle) {
 		angleMode(RADIANS);
 		drawCircleGraph(color(220));		
@@ -122,3 +129,42 @@ function displayMouth() {
 	noStroke();
 	ellipse(width/2, height/2, width*8/10, vol*1000);
 }
+
+function handleFFT() {
+	let spectrum = fft.analyze();
+	// console.log(spectrum);
+	drawFrequencySpectrum(spectrum);
+}
+
+function drawFrequencySpectrum(spectrum) {
+	noFill();
+	strokeWeight(1);
+	
+	let y = 0;
+	// let greyValue = 0;
+	let hue = 0;
+	let barAlpha = 10;
+	
+	let peakAlpha = 90;
+	let peakColor = color(200, peakAlpha);
+	
+	beginShape();
+	// Draw frequency bar
+	for (let i=0; i<spectrum.length; i++) {
+		y = map(spectrum[i], 0, 255, height, 0);
+		
+		// greyValue = map(spectrum[i], 0, 255, 50, 245);
+		hue = map(spectrum[i], 0, 255, 210, 10);
+		colorMode(HSB);
+		stroke(hue, 255, 100, barAlpha);
+		line(i, height, i, y+1); // +1 to remove interference with vertices;
+		
+		vertex(i, y);
+	}
+
+	// Draw peak
+	colorMode(RGB);
+	stroke(peakColor);
+	strokeWeight(1.5);
+	endShape();
+} 
