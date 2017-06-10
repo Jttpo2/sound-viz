@@ -16,9 +16,11 @@ function preload() {
 }
 
 function setup() {
+	angleMode(DEGREES);
+
 	let canvas = createCanvas(
-		window.innerWidth * 7/10,
-		window.innerHeight * 7/10
+		window.innerWidth, //* 7/10,
+		window.innerHeight // * 7/10
 		);
 
 	backgroundColor = color(200);
@@ -27,9 +29,8 @@ function setup() {
 
 	amp = new p5.Amplitude();
 
-
-	button = createButton('Toggle');
-	button.mousePressed(toggleSong);
+	// button = createButton('Toggle');
+	// button.mousePressed(toggleSong);
 }
 
 function draw() {
@@ -58,11 +59,11 @@ function toggleSong() {
 
 function limitVolHistory() {
 	let maxSize;
-	if (circle) {
-		maxSize = 360;
-	} else {
+	// if (circle) {
+	// 	maxSize = 360;
+	// } else {
 		maxSize = width;
-	}
+	// }
 
 	if (volHistory.length > maxSize) {
 		volHistory.splice(0, volHistory.length - maxSize);
@@ -70,34 +71,50 @@ function limitVolHistory() {
 }
 
 function displayGraph() {
-	
 	if (circle) {
-		noFill();
-		stroke(50);
-		strokeWeight(1);
+		angleMode(RADIANS);
+		drawCircleGraph(color(220));		
 
-		translate(width/2, height/2);
+		angleMode(DEGREES);
+		drawCircleGraph(color(200, 0, 0, 80));
 
-		beginShape();
-		for (let i=0; i<360; i++) {
-			let r = map(volHistory[i], 0, 1, 40, 300);
-			let x = r * cos(i);
-			let y = r * sin(i);
-
-			vertex(x, y);
-		}
-		endShape();
-
+		displayLineGraph();
 	} else {
-		stroke(50);
-		noFill();
-		beginShape();
-		for (let i=0; i<volHistory.length; i++) {
-			let y = map(volHistory[i], 0, 1, height/2, 0);
-			vertex(i, y);
-		}
-		endShape();	
+		displayLineGraph();
 	}
+}
+
+function drawCircleGraph(col) {
+	noFill();
+	stroke(col);
+	strokeWeight(1);
+
+	push();
+	translate(width/2, height/2);
+	rotate(-90);
+
+	beginShape();
+	for (let angle=0; angle<360; angle++) {
+		let index = max(volHistory.length - 360, 0) + angle;
+		let r = map(volHistory[index], 0, 1, 40, 300);
+		let x = r * cos(angle);
+		let y = r * sin(angle);
+
+		vertex(x, y);
+	}
+	endShape();
+	pop();
+}
+
+function displayLineGraph() {
+	stroke(100, 50);
+	noFill();
+	beginShape();
+	for (let i=0; i<volHistory.length; i++) {
+		let y = map(volHistory[i], 0, 1, height/2, 0);
+		vertex(i, y);
+	}
+	endShape();	
 }
 
 function displayMouth() {
