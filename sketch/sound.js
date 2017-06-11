@@ -14,6 +14,8 @@ let fft;
 let bands = 512;
 let smoothing = 0.999;
 
+let w;
+
 let button;
 
 function preload() {
@@ -24,8 +26,8 @@ function setup() {
 	angleMode(DEGREES);
 
 	let canvas = createCanvas(
-		//window.innerWidth, //* 7/10,
-		bands,
+		window.innerWidth, //* 7/10,
+		// 700,
 		window.innerHeight // * 7/10
 		);
 
@@ -35,6 +37,8 @@ function setup() {
 
 	amp = new p5.Amplitude();
 	fft = new p5.FFT(smoothing, bands);
+
+	w = width/bands;
 
 	// button = createButton('Toggle');
 	// button.mousePressed(toggleSong);
@@ -143,7 +147,7 @@ function drawFrequencySpectrum(spectrum) {
 	let y = 0;
 	// let greyValue = 0;
 	let hue = 0;
-	let barAlpha = 10;
+	let barAlpha = 90;
 	
 	let peakAlpha = 90;
 	let peakColor = color(200, peakAlpha);
@@ -156,15 +160,28 @@ function drawFrequencySpectrum(spectrum) {
 		// greyValue = map(spectrum[i], 0, 255, 50, 245);
 		hue = map(spectrum[i], 0, 255, 210, 10);
 		colorMode(HSB);
-		stroke(hue, 255, 100, barAlpha);
-		line(i, height, i, y+1); // +1 to remove interference with vertices;
 		
-		vertex(i, y);
+		// Extra projection lines
+		noFill();
+		stroke(hue, 20, 100, 1);
+		// line(0, height, i*w, y+1); // +1 to remove interference with vertices;
+		line(width/2, height, i*w, y+1); // +1 to remove interference with vertices;
+		
+		// Frequency bars
+		let frBarColor = color(hue, 255, 100, barAlpha);
+		stroke(frBarColor);
+		fill(frBarColor);
+		rect(i*w, y+1, w, y);
+		
+		// Peak vertices
+		vertex(i*w, y);
+
 	}
 
 	// Draw peak
+	noFill();
 	colorMode(RGB);
 	stroke(peakColor);
-	strokeWeight(1.5);
+	// strokeWeight(1.5);
 	endShape();
 } 
