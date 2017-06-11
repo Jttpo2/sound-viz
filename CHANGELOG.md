@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## [Unreleased]
 ### Added
 - Basic animation of song amplitude over time.
-
+- Real time frequency analysis graph (by FFT).
 
 ## [0.3.0] - 2017-05-10
 ### Added
