@@ -1,7 +1,7 @@
 new p5();
 
 let backgroundColor;
-let opacity = 1;
+let opacity = 10;
 
 let song;
 let amp;
@@ -11,7 +11,7 @@ let volHistory = [];
 let circle = true;
 
 let fft;
-let bands = 512;
+let bands = Math.pow(2, 7);
 let smoothing = 0.999;
 
 let w;
@@ -147,7 +147,7 @@ function drawFrequencySpectrum(spectrum) {
 	let y = 0;
 	// let greyValue = 0;
 	let hue = 0;
-	let barAlpha = 90;
+	let barAlpha = 70;
 	
 	let peakAlpha = 90;
 	let peakColor = color(200, peakAlpha);
@@ -158,23 +158,25 @@ function drawFrequencySpectrum(spectrum) {
 		y = map(spectrum[i], 0, 255, height, 0);
 		
 		// greyValue = map(spectrum[i], 0, 255, 50, 245);
-		hue = map(spectrum[i], 0, 255, 210, 10);
+		hue = map(spectrum[i], 0, 255, 170, 10);
 		colorMode(HSB);
 		
 		// Extra projection lines
 		noFill();
-		stroke(hue, 20, 100, 1);
+		stroke(hue, 20, 100, 10);
+		strokeWeight(1);
 		// line(0, height, i*w, y+1); // +1 to remove interference with vertices;
-		line(width/2, height, i*w, y+1); // +1 to remove interference with vertices;
+		line(width/2, height/2, i*w +w/2, y); // 
 		
 		// Frequency bars
 		let frBarColor = color(hue, 255, 100, barAlpha);
+		strokeWeight(1);
 		stroke(frBarColor);
 		fill(frBarColor);
-		rect(i*w, y+1, w, y);
+		rect(i*w, y, w*9.5/10, height-y, 30, 30, 0, 0);
 		
 		// Peak vertices
-		vertex(i*w, y);
+		vertex(i*w + w/2, y);
 
 	}
 
@@ -182,6 +184,6 @@ function drawFrequencySpectrum(spectrum) {
 	noFill();
 	colorMode(RGB);
 	stroke(peakColor);
-	// strokeWeight(1.5);
+	strokeWeight(w*2/3);
 	endShape();
 } 
